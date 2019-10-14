@@ -37,10 +37,8 @@ class User < ApplicationRecord
   
    #お気に入り機能追加
   
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :make_favorites, through: :favorites, source: :micropost
-  has_many :reverses_of_favorite, class_name: 'favorites', foreign_key: 'micropost_id'
-  
   
   def favorite(micropost)
     self.favorites.find_or_create_by(micropost_id: micropost.id)
